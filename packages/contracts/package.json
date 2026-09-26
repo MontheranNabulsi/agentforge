@@ -1,0 +1,22 @@
+{
+  "name": "@agentforge/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Zod schemas and TypeScript types shared by the AgentForge API and web app.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.2"
+  }
+}

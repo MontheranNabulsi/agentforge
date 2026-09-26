@@ -1,0 +1,44 @@
+{
+  "name": "agentforge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An AI engineering workspace: ground agents in project knowledge, inspect every run, approve risky actions, and evaluate quality.",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@12.6.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "bootstrap": "node scripts/bootstrap.mjs",
+    "dev": "pnpm --filter @agentforge/server dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "arch": "depcruise apps/server/src --config .dependency-cruiser.cjs --output-type err",
+    "test": "pnpm -r test",
+    "test:unit": "pnpm -r test:unit",
+    "test:int": "pnpm --filter @agentforge/server test:int",
+    "evals": "pnpm --filter @agentforge/server evals",
+    "e2e": "pnpm --filter @agentforge/web e2e",
+    "db:migrate": "pnpm --filter @agentforge/server db:migrate",
+    "db:seed": "pnpm --filter @agentforge/server db:seed",
+    "openapi:export": "pnpm --filter @agentforge/server openapi:export"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "@eslint/js": "^10.0.1",
+    "@next/eslint-plugin-next": "16.3.6",
+    "@types/node": "^24.19.0",
+    "dependency-cruiser": "^18.4.0",
+    "eslint": "^10.11.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.70.1"
+  }
+}

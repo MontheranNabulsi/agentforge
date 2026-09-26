@@ -1,0 +1,44 @@
+# Everything on one machine: `docker compose up --build`, then open http://localhost:4000
+# (demo login: demo@agentforge.dev / agentforge-2026). Set ANTHROPIC_API_KEY to use Claude.
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: agentforge
+      POSTGRES_PASSWORD: agentforge
+      POSTGRES_DB: agentforge
+    ports: ['5432:5432']
+    volumes: ['pgdata:/var/lib/postgresql/data']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U agentforge']
+      interval: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    command: ['redis-server', '--maxmemory-policy', 'noeviction']
+    ports: ['6379:6379']
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      retries: 20
+
+  app:
+    build: .
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    ports: ['4000:4000']
+    environment:
+      PORT: 4000
+      APP_URL: http://localhost:4000
+      DATABASE_URL: postgres://agentforge:agentforge@postgres:5432/agentforge
+      REDIS_URL: redis://redis:6379
+      BLOB_STORAGE: postgres
+      MIGRATE_ON_START: 'true'
+      SEED_ON_START: 'true'
+      LLM_PROVIDER: ${LLM_PROVIDER:-fake}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+
+volumes:
+  pgdata:

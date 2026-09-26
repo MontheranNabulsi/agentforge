@@ -1,0 +1,15 @@
+name: Keep the free instance warm
+
+# Free web services sleep after ~15 minutes without traffic. Set the repository variable
+# APP_URL (Settings → Secrets and variables → Actions → Variables) to enable this ping.
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    if: ${{ vars.APP_URL != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS --max-time 60 "${{ vars.APP_URL }}/health/ready"
