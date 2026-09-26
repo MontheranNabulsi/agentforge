@@ -4,8 +4,9 @@
 building agents that answer from your documents with citations, use tools only through explicit
 capabilities, ask a person before they change anything, and record every step they take.
 
-**Live demo:** _deploying — the URL is added here once the first deploy is live_ ·
-demo login `demo@agentforge.dev` / `agentforge-2026`
+**Live demo: [agentforge-46h1.onrender.com](https://agentforge-46h1.onrender.com)** · sign in with
+**Continue as demo user** (`demo@agentforge.dev` / `agentforge-2026`). It runs on free tiers
+(Render + Supabase), so the first request after a restart can take up to a minute.
 
 ![Chat with citations and the live execution timeline](docs/screenshots/chat.png)
 

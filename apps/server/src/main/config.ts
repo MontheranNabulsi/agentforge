@@ -79,6 +79,8 @@ const EnvSchema = z.object({
   SELF_PING: bool.default(false),
   /** Set automatically by Render; used as APP_URL when APP_URL is not given. */
   RENDER_EXTERNAL_URL: z.url().optional(),
+  /** Set automatically by Render; used as GIT_SHA when GIT_SHA is not given. */
+  RENDER_GIT_COMMIT: z.string().optional(),
 });
 
 export type Env = z.infer<typeof EnvSchema>;
@@ -146,7 +148,7 @@ export function loadConfig(source: NodeJS.ProcessEnv = process.env): AppConfig {
   return {
     env: e.NODE_ENV,
     version: e.APP_VERSION,
-    gitSha: e.GIT_SHA ?? null,
+    gitSha: e.GIT_SHA ?? e.RENDER_GIT_COMMIT ?? null,
     http: {
       port: e.PORT,
       host: e.HOST,

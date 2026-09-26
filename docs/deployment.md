@@ -8,7 +8,9 @@ from Supabase (pgvector is available), Redis from Render Key Value.
 1. **Database (Supabase).** Create a project, then a login role for the app with `CREATE` on the
    `public` schema and the database (for the `langgraph` schema). Use the **session pooler**
    connection string (port 5432; the transaction pooler breaks `LISTEN/NOTIFY` and prepared
-   statements).
+   statements). Copy it from Supabase → **Connect** rather than typing it: the host prefix
+   (`aws-0-…`, `aws-1-…`) differs between projects, and a wrong one fails at boot with
+   `tenant/user <role>.<project-ref> not found`. The user name is `<role>.<project-ref>`.
 2. **Redis (Render Key Value).** Create a free instance with the `noeviction` policy (queues must
    not be evicted). Use the internal connection string.
 3. **Web service (Render).** New → Web Service → this repository → runtime Docker, region close
